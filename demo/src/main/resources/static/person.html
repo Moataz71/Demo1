@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>Title</title>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+        $.ajax({
+            url:"http://localhost:8080/get-persons",
+            type:"get",
+            success: function (x){
+                $.each(x,function(i,obj){
+                    var div_x="<option value=" + obj.id +">" + obj.name + " " + obj.age + "</option>"
+                    $(div_x).appendTo('#persons');
+                })
+            }
+        });
+
+        })
+
+        function savePerson(){
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var object = {
+        "name" :name,
+        "age" : age
+        };
+        var jsonObject = JSON.stringify(object);
+
+        $.ajax({
+            url:"http://localhost:8080/add-person",
+            type:"post",
+               data: jsonObject,
+              contentType:"application/json;",
+              dataType: "application/json",
+              success: alert("success")
+
+        })
+
+        }
+
+        function editPerson(){
+        var name = $("#editname").val();
+        var age = $("#editage").val();
+        var id = $("#persons option:selected").val();
+        var object = {
+        "name" :name,
+        "age" : age,
+        "id" : id ,
+        };
+        var jsonObject = JSON.stringify(object);
+
+        $.ajax({
+            url:"http://localhost:8080/edit-person",
+            type:"post",
+               data: jsonObject,
+              contentType:"application/json;",
+              dataType: "application/json",
+              success: alert("success")
+
+        })
+
+        }
+        function deletePerson(){
+        var id = $("#persons option:selected").val();
+        var object = {
+        "id" : id
+        };
+        var jsonObject = JSON.stringify(object);
+
+        $.ajax({
+            url:"http://localhost:8080/delete-person",
+            type:"delete",
+               data: jsonObject,
+              contentType:"application/json;",
+              dataType: "application/json",
+              success: alert("success")
+
+        })
+
+        }
+    </script>
+</head>
+<body>
+
+<select id="persons">
+
+
+</select>
+
+<button type="button" onclick="deletePerson()">delete person</button>
+
+
+<p></p>
+
+
+<form>
+    <input id="editname" type="text"/>
+    <input id="editage" type="number"/>
+    <button type="button" onclick="editPerson()">edit person</button>
+
+</form>
+
+
+<p></p>
+
+<form>
+    <input id="name" type="text"/>
+    <input id="age" type="number"/>
+    <button type="button" onclick="savePerson()">submit person</button>
+
+</form>
+
+</body>
+</html>

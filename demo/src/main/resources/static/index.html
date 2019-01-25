@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+
+<style type="text/css">
+    body {
+       background-color: pink;
+    }
+
+</style>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    var data = [{"id":1,"name":"hoi2"},{"id":2,"name":"test"},{"id":3,"name":"test"},{"id":4,"name":"test"},{"id":5,"name":"test"},{"id":6,"name":"test"},{"id":7,"name":"test"},{"id":8,"name":"test"}];
+
+
+    $('#table_id').DataTable({
+        data: data,
+        columns: [
+        { data: 'name' },
+        { data: 'id' },
+        ]
+    });
+    console.log("getting the data...");
+
+    $("#hoi").click(function hoi() {
+        alert("it works");
+     });
+
+    $.ajax({
+        url: "http://localhost:8080/find-one/",
+        type: "get",
+        data: {id: 1},
+        success: function (kj) {
+            console.log("found one: " + kj.id);
+        }
+    });
+
+    $.ajax({
+        url: "http://localhost:8080/get-demos",
+        type: "get",
+        success: function (data) {
+                $.each(data,function(i,kj)
+                {
+                    // alert(kj.id+":"+kj.name);
+                    var div_data="<option value="+kj.id+">"+kj.name+"</option>";
+                    //alert(div_data);
+                    $(div_data).appendTo('#data');
+                })}
+    });
+
+
+
+})
+
+    function postDemo(){
+        var name = $('#name').val();
+        console.log(name);
+
+        var demoObj = {
+            "name": name
+        };
+
+        var jsonObject = JSON.stringify(demoObj);
+        console.log(jsonObject);
+
+        $.ajax({
+              type: "post",
+              url: "http://localhost:8080/save",
+              data: jsonObject,
+              contentType:"application/json;",
+              dataType: "application/json",
+              success: alert("success")
+         })
+    }
+
+
+</script>
+</head>
+<body>
+<h1 id="demo">big heading</h1>
+<h2>smallerheading</h2>
+<h6>smallestheading</h6>
+<!--<button onclick="getData()">hoi</button>-->
+<select id="data">
+
+</select>
+
+<form id="form">
+    <input id="name" name="name" type="text"></input>
+    <button id="save-demo" type="button" onclick="postDemo()">submit demo</button>
+</form>
+<form>
+    <button type="button" id="hoi" onclick="alert('hoi')">HOI</button>
+</form>
+
+<table id="table_id" class="display">
+    <thead>
+    <tr>
+        <th>khjkhkj</th>
+        <th>id</th>
+    </tr>
+    </thead>
+    <tbody>
+
+</table>
+</body>
+
+</html>

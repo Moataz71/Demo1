@@ -1,0 +1,16 @@
+INSERT INTO Demo (name) VALUES ('hoi2');
+INSERT INTO Demo (name) VALUES ('test');
+INSERT INTO Demo (name) VALUES ('test');
+INSERT INTO Demo (name) VALUES ('test');
+INSERT INTO Demo (name) VALUES ('test');
+INSERT INTO Demo (name) VALUES ('test');
+INSERT INTO Demo (name) VALUES ('test');
+INSERT INTO Demo (name) VALUES ('test');
+INSERT INTO Person (name , age) VALUES ('nm1',13);
+INSERT INTO Person (name , age) VALUES ('nm2',23);
+INSERT INTO Person (name , age) VALUES ('nm3',33);
+INSERT INTO Person (name , age) VALUES ('nm4',43);
+INSERT INTO Person (name , age) VALUES ('nm5',53);
+INSERT INTO Person (name , age) VALUES ('nm6',63);
+INSERT INTO Person (name , age) VALUES ('nm7',73);
+INSERT INTO Person (name , age) VALUES ('nm8',83);
